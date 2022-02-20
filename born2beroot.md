@@ -56,3 +56,16 @@
 	/vim/etc/pam.d/common-password 
 	lcredit ucredit dcredit ocredit > 0 각 문자를 사용할 때마다 부여되는 추가 점수
 									< 0 최소로 사용해야하는 숫자.
+
+## 5. monitoring.sh 
+10분마다 모든 터미널에대한 몇몇의 정보들을 표시한다.
+
+- `cron` : 
+- top -bn 1
+- DISKUSAGE : `$(df -ht ext4 --total | grep total | awk '{printf $5})`
+- TOTALDISK : `$(df -ht ext4 --total | grep total | awk '{print $5})`
+- CURRENTDISK : `$(df -ht ext4 --total | grep total | awk '{print $3})`
+- CPU load : `$(mpstat | tail -1 | awk '{print 100-$NF})`
+- LVCOUNT : `$(pvscan | tail - 1 | awk '{print 100-$NF}')`
+- LVMUSE : `if [ ${LVCOUNT} -ge 1 ]; then echo "yes"; else echo "no"; fi`
+- 
